@@ -1,0 +1,8 @@
+node_modules
+target
+dist/
+
+.*.swp
+*.iml
+.idea/*
+npm-debug.log
