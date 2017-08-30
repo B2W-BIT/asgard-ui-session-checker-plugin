@@ -1,0 +1,40 @@
+{
+  "name": "session-checker-plugin",
+  "version": "0.0.1",
+  "engines": {
+    "node": "6.11.2"
+  },
+  "description": "Plugin que checa a validade da sessão",
+  "keywords": [
+    "ui",
+    "plugin"
+  ],
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "bitbucket.org:sievetech/marathon-ui-session-checker-plugin"
+  },
+  "dependencies": {
+    "babel-polyfill": "^6.2.0",
+    "flux": "^2.0.3",
+    "react": "^0.13.2"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.4.0",
+    "babel-core": "^6.2.1",
+    "babel-eslint": "^4.1.6",
+    "babel-loader": "^6.2.0",
+    "babel-plugin-transform-runtime": "^6.5.0",
+    "babel-preset-es2015": "^6.1.18",
+    "babel-preset-react": "^6.1.18",
+    "babel-preset-stage-0": "^6.1.18",
+    "eslint": "^1.10.0",
+    "eslint-loader": "^1.1.1",
+    "eslint-plugin-react": "^3.10.0",
+    "webpack": "^1.12.9"
+  },
+  "scripts": {
+    "build": "webpack --progress --colors",
+    "lint": "eslint src/**/*.js*"
+  }
+}
