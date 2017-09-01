@@ -26,7 +26,10 @@ function checkStatusCode(statusCode) {
 Sieve.DialogStore.on("DIALOG_EVENTS_ACCEPT_DIALOG", acceptDialog);
 
 function checkSession() {
-  ajaxWrapper({url: `${config.apiURL}v2/deployments`})
+  ajaxWrapper({
+    url: `${config.apiURL}v2/deployments`,
+    concurrent: true
+  })
   .error(function (error) {
     checkStatusCode(error.status);
   });
