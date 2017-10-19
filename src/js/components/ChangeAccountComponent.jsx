@@ -8,6 +8,16 @@ const {
   config,
 } = window.marathonPluginInterface;
 
+function showErrorDialog(title, message) {
+
+  PluginHelper.callAction(PluginActions.DIALOG_ALERT, [{
+    title: title,
+    message: message,
+    actionButtonLabel: "OK",
+  }]);
+
+}
+
 var ChangeAccountComponent = React.createClass({
   displayName: "ChangeAccountComponent",
 
@@ -29,9 +39,12 @@ var ChangeAccountComponent = React.createClass({
 
   acceptChangeAccountDialog: function (dialog) {
     if (dialog.myid === "session-account-change") {
-      ajaxWrapper({url: `${config.apiURL}hollow/account/next`, method: "POST"})
+      ajaxWrapper({
+        url: `${config.apiURL}hollow/account/next`,
+        method: "POST"
+      })
       .error(error => {
-        console.log("Erro trocando de conta. status=" + error.status);
+        showErrorDialog("Erro ao trocar de conta", error.body.msg);
       })
       .success(response => {
         this.setState({
@@ -52,7 +65,11 @@ var ChangeAccountComponent = React.createClass({
 
     ajaxWrapper({url: `${config.apiURL}hollow/account/me`, method: "GET"})
     .error(error => {
-      console.log("Erro trocando de conta. status=" + error.status);
+      /* Não temos muito o que fazer aqui. Se retornar erro,
+       * já estamos deslogados e isso já é tratado por outra
+       * parte desse plugin. E se estamos deslogados,
+       * não temos o que exiibir nesse componente.
+       */
     })
     .success(response => {
       this.setState({
