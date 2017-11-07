@@ -17,6 +17,7 @@
   "dependencies": {
     "babel-polyfill": "^6.2.0",
     "flux": "^2.0.3",
+    "jwt-decode": "^2.2.0",
     "react": "^0.13.2"
   },
   "devDependencies": {

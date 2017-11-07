@@ -1,4 +1,7 @@
 import React from "react/addons";
+/* eslint-disable camelcase */
+import jwt_decode from "jwt-decode";
+/* eslint-enable camelcase */
 
 const {
   PluginActions,
@@ -57,26 +60,35 @@ var ChangeAccountComponent = React.createClass({
     }
   },
 
+  componentDidMount: function () {
+    this.startPolling();
+  },
+
+  whoAmI: function () {
+    /* eslint-disable no-unused-vars */
+    ajaxWrapper({url: `${config.apiURL}hollow/account/me`, method: "GET"})
+      .error(error => {
+        /* Não temos muito o que fazer aqui. Se retornar erro,
+         * já estamos deslogados e isso já é tratado por outra
+         * parte desse plugin. E se estamos deslogados,
+         * não temos o que exiibir nesse componente.
+          */
+      })
+      .success(response => {
+        this.setState({
+          User: response.body.user,
+          CurrentAccount: response.body.current_account
+        });
+      });
+    /* eslint-enable no-unused-vars */
+  },
+
   componentWillMount: function () {
     Sieve.DialogStore.on(
       "DIALOG_EVENTS_ACCEPT_DIALOG",
       this.acceptChangeAccountDialog
     );
-
-    ajaxWrapper({url: `${config.apiURL}hollow/account/me`, method: "GET"})
-    .error(error => {
-      /* Não temos muito o que fazer aqui. Se retornar erro,
-       * já estamos deslogados e isso já é tratado por outra
-       * parte desse plugin. E se estamos deslogados,
-       * não temos o que exiibir nesse componente.
-       */
-    })
-    .success(response => {
-      this.setState({
-        User: response.body.user,
-        CurrentAccount: response.body.current_account
-      });
-    });
+    this.whoAmI();
   },
 
   render: function () {
@@ -86,8 +98,27 @@ var ChangeAccountComponent = React.createClass({
         <span> {this.state.User.name}@{this.state.CurrentAccount.name} </span>
       </div>
     );
-  }
+  },
 
+  reReadToken: function () {
+    /* eslint-disable no-empty */
+    try {
+      var token = jwt_decode(localStorage.getItem("auth_token"));
+      this.setState({
+        User: token.user,
+        CurrentAccount: token.current_account
+      });
+    } catch (e) {
+
+    }
+    /* eslint-enable no-empty */
+  },
+
+  startPolling: function () {
+    if (this.interval == null) {
+      this.interval = setInterval(this.reReadToken, 5000);
+    }
+  }
 });
 
 export default ChangeAccountComponent;
