@@ -1,7 +1,6 @@
 const {
   PluginActions,
   PluginHelper,
-  ajaxWrapper,
   config,
   Sieve
 } = window.marathonPluginInterface;
@@ -26,7 +25,7 @@ function checkStatusCode(statusCode) {
 Sieve.DialogStore.on("DIALOG_EVENTS_ACCEPT_DIALOG", acceptDialog);
 
 function checkSession() {
-  ajaxWrapper({
+  Sieve.ajaxWrapper({
     url: `${config.apiURL}v2/deployments`,
     concurrent: true
   })
