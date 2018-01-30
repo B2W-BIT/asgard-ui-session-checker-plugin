@@ -5,18 +5,13 @@ const {
   PipelineStore,
 } = window.marathonPluginInterface;
 
-const VERSION = "0.1.0";
+const VERSION = "0.2.0";
 
 import SessionCheckerAction from "./actions/SessionCheckerAction";
 import ChangeAccountComponent from "./components/ChangeAccountComponent";
 
 PluginHelper.registerMe();
 SessionCheckerAction.init();
-
-PluginHelper.injectComponent(
-  ChangeAccountComponent,
-  PluginMountPoints.NAVBAR_TOP_RIGHT
-);
 
 if (PipelineNames && PipelineStore) {
   console.log("Registering PRE_AJAX_REQUEST callback");
@@ -34,3 +29,7 @@ if (PipelineNames && PipelineStore) {
   console.log("Request Pipelines feature not found...");
 }
 
+PluginHelper.injectComponent(
+  ChangeAccountComponent,
+  PluginMountPoints.NAVBAR_TOP_RIGHT
+);
