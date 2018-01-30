@@ -5,6 +5,8 @@ const {
   PipelineStore,
 } = window.marathonPluginInterface;
 
+const VERSION = "0.1.0";
+
 import SessionCheckerAction from "./actions/SessionCheckerAction";
 import ChangeAccountComponent from "./components/ChangeAccountComponent";
 
