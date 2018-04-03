@@ -7,7 +7,7 @@ const {
   PluginActions,
   PluginHelper,
   Sieve,
-  config,
+  MarathonService,
 } = window.marathonPluginInterface;
 
 function showErrorDialog(title, message) {
@@ -41,8 +41,8 @@ var ChangeAccountComponent = React.createClass({
 
   acceptChangeAccountDialog: function (dialog) {
     if (dialog.myid === "session-account-change") {
-      Sieve.ajaxWrapper({
-        url: `${config.apiURL}hollow/account/next`,
+      MarathonService.request({
+        resource: "hollow/account/next",
         method: "POST"
       })
       .error(error => {
@@ -65,7 +65,7 @@ var ChangeAccountComponent = React.createClass({
 
   whoAmI: function () {
     /* eslint-disable no-unused-vars */
-    Sieve.ajaxWrapper({url: `${config.apiURL}hollow/account/me`, method: "GET"})
+    MarathonService.request({resource: "hollow/account/me", method: "GET"})
       .error(error => {
         /* Não temos muito o que fazer aqui. Se retornar erro,
          * já estamos deslogados e isso já é tratado por outra
