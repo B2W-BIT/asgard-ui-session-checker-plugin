@@ -6,7 +6,7 @@ import jwt_decode from "jwt-decode";
 const {
   PluginActions,
   PluginHelper,
-  Sieve,
+  Bridge,
   MarathonService,
 } = window.marathonPluginInterface;
 
@@ -55,7 +55,7 @@ var ChangeAccountComponent = React.createClass({
         });
         localStorage.setItem("auth_token", response.body.jwt_token);
       });
-      Sieve.navigateTo("/#/apps");
+      Bridge.navigateTo("/#/apps");
     }
   },
 
@@ -83,7 +83,7 @@ var ChangeAccountComponent = React.createClass({
   },
 
   componentWillMount: function () {
-    Sieve.DialogStore.on(
+    Bridge.DialogStore.on(
       "DIALOG_EVENTS_ACCEPT_DIALOG",
       this.acceptChangeAccountDialog
     );
