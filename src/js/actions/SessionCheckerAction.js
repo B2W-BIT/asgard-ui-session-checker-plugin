@@ -1,13 +1,13 @@
 const {
   PluginActions,
   PluginHelper,
-  config,
-  Sieve
+  Bridge,
+  MarathonService,
 } = window.marathonPluginInterface;
 
 var acceptDialog = function (dialog) {
   if (dialog.myid === "session-expired") {
-    Sieve.navigateTo("/login");
+    Bridge.navigateTo("/login");
   }
 };
 
@@ -22,12 +22,15 @@ function checkStatusCode(statusCode) {
   }
 }
 
-Sieve.DialogStore.on("DIALOG_EVENTS_ACCEPT_DIALOG", acceptDialog);
+Bridge.DialogStore.on("DIALOG_EVENTS_ACCEPT_DIALOG", acceptDialog);
 
 function checkSession() {
-  Sieve.ajaxWrapper({
-    url: `${config.apiURL}v2/deployments`,
+  MarathonService.request({
+    resource: "v2/deployments",
     concurrent: true
+  })
+  .success(response => {
+
   })
   .error(function (error) {
     checkStatusCode(error.status);

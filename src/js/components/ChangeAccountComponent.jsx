@@ -6,8 +6,8 @@ import jwt_decode from "jwt-decode";
 const {
   PluginActions,
   PluginHelper,
-  Sieve,
-  config,
+  Bridge,
+  MarathonService,
 } = window.marathonPluginInterface;
 
 function showErrorDialog(title, message) {
@@ -41,8 +41,8 @@ var ChangeAccountComponent = React.createClass({
 
   acceptChangeAccountDialog: function (dialog) {
     if (dialog.myid === "session-account-change") {
-      Sieve.ajaxWrapper({
-        url: `${config.apiURL}hollow/account/next`,
+      MarathonService.request({
+        resource: "hollow/account/next",
         method: "POST"
       })
       .error(error => {
@@ -55,7 +55,7 @@ var ChangeAccountComponent = React.createClass({
         });
         localStorage.setItem("auth_token", response.body.jwt_token);
       });
-      Sieve.navigateTo("/#/apps");
+      Bridge.navigateTo("/#/apps");
     }
   },
 
@@ -65,7 +65,7 @@ var ChangeAccountComponent = React.createClass({
 
   whoAmI: function () {
     /* eslint-disable no-unused-vars */
-    Sieve.ajaxWrapper({url: `${config.apiURL}hollow/account/me`, method: "GET"})
+    MarathonService.request({resource: "hollow/account/me", method: "GET"})
       .error(error => {
         /* Não temos muito o que fazer aqui. Se retornar erro,
          * já estamos deslogados e isso já é tratado por outra
@@ -83,7 +83,7 @@ var ChangeAccountComponent = React.createClass({
   },
 
   componentWillMount: function () {
-    Sieve.DialogStore.on(
+    Bridge.DialogStore.on(
       "DIALOG_EVENTS_ACCEPT_DIALOG",
       this.acceptChangeAccountDialog
     );
