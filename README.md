@@ -4,7 +4,7 @@
 ## Changelog
 
 * 0.3.0
-  > Passamos a depender do objeto Bridge (em vez do Sieve). Exige versçao da asgard UI 0.14.0+
+  > Passamos a depender do objeto Bridge (em vez do Sieve). Exige versão da asgard UI 0.14.0+
 
 
 ## Fazendo o build
