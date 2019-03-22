@@ -28,8 +28,3 @@ if (PipelineNames && PipelineStore) {
 } else {
   console.log("Request Pipelines feature not found...");
 }
-
-PluginHelper.injectComponent(
-  ChangeAccountComponent,
-  PluginMountPoints.NAVBAR_TOP_RIGHT
-);
